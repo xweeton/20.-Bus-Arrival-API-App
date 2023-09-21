@@ -11,7 +11,7 @@ async function fetchBusArrival(busStopIdInput) {
       let arrivalInfo = '';
 
       for (const service of busStopArrivalData.services) {
-        arrivalInfo += 
+        arrivalInfo +=
           `<div> 
             <strong>Bus no: ${service.bus_no}</strong> - Next arrival in ${service.next_bus_mins} minutes
           </div>`;

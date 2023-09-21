@@ -31,6 +31,15 @@ body {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
+  transition: transform 0.2s;
+}
+
+#submit:hover {
+  transform: translate(-1.5px, -2px);
+}
+
+#submit:active {
+  transform: translate(0.5px, 1px);
 }
 
 #arrivalInfo {
