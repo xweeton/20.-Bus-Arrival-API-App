@@ -11,12 +11,14 @@ async function fetchBusArrival(busStopIdInput) {
       let arrivalInfo = '';
 
       for (const service of busStopArrivalData.services) {
+        let nextBusMins = service.next_bus_mins <= 0 ? 'Arriving' : `Next arrival in ${service.next_bus_mins} minutes`;
         arrivalInfo +=
           `<div> 
-            <strong>Bus no: ${service.bus_no}</strong> - Next arrival in ${service.next_bus_mins} minutes
+            <strong>Bus no: ${service.bus_no}</strong> - ${nextBusMins}
           </div>`;
       }
       arrivalInfoDiv.innerHTML = `${arrivalInfo} <strong>${busStopArrivalData.services.length}</strong> bus(es)`;
+
     } else {
       arrivalInfoDiv.innerHTML = 'Error fetching bus arrival data.';
     }
@@ -25,7 +27,15 @@ async function fetchBusArrival(busStopIdInput) {
   }
 }
 
+function autoRefreshBusArrival(busStopIdInput) {
+  fetchBusArrival(busStopIdInput);
+
+  setInterval(() => {
+    fetchBusArrival(busStopIdInput);
+  }, 5000)
+}
+
 function getBusTiming() {
   const busStopIdInput = document.getElementById('busStopId').value;
-  return fetchBusArrival(busStopIdInput);
+  autoRefreshBusArrival(busStopIdInput)
 }
